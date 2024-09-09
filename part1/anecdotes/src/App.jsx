@@ -13,6 +13,11 @@ const App = () => {
   ])
   const [selected, setSelected] = useState(1)
 
+  const getMostPopular = () => {
+    const sortedAnecdotes = anecdotes.sort((a, b) => b.votes - a.votes)
+    return sortedAnecdotes[0]
+  }
+  
   const getAnecdote = () => {
     return anecdotes.find((anecdote) => anecdote.id === selected)
   }
@@ -29,10 +34,15 @@ const App = () => {
 
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       <p>{getAnecdote().anecdote}</p>
       <p>has {getAnecdote().votes} votes</p>
       <button onClick={handleClickVote}>vote</button>
       <button onClick={getNextAnecdote}>next anecdote</button>
+      <br/>
+      <h1>Anecdote with most votes</h1>
+      <p>{getMostPopular().anecdote}</p>
+      <p>has {getMostPopular().votes} votes</p>
     </div>
   )
 }
