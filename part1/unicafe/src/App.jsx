@@ -3,7 +3,10 @@ import { useState } from 'react'
 // staistic line
 const StatisticLine = ({ text, value, percentage }) => {
   return (
-    <p>{text} {value} {percentage && '%'}</p>
+    <tr>
+      <td> {text} </td>
+      <td> {value} {percentage && '%'} </td>
+    </tr>
   )
 }
 
@@ -21,14 +24,16 @@ const Statistics = ({ good, neutral, bad }) => {
       <h1>statistics</h1>
       {visible 
       ? 
-        <>
-          <StatisticLine text={'good'} value={good} />
-          <StatisticLine text={'neutral'} value={neutral} />
-          <StatisticLine text={'bad'} value={bad} />
-          <StatisticLine text={'all'} value={all} />
-          <StatisticLine text={'average'} value={average} />
-          <StatisticLine text={'positive'} value={positive} percentage={true} />
-        </> 
+        <table>
+          <tbody>
+            <StatisticLine text={'good'} value={good} />
+            <StatisticLine text={'neutral'} value={neutral} />
+            <StatisticLine text={'bad'} value={bad} />
+            <StatisticLine text={'all'} value={all} />
+            <StatisticLine text={'average'} value={average} />
+            <StatisticLine text={'positive'} value={positive} percentage={true} />
+          </tbody>
+        </table> 
       : 
         <>
           <p>No feedback given</p>
