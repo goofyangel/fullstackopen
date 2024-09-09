@@ -1,10 +1,20 @@
 import { useState } from 'react'
 
+// staistic line
+const StatisticLine = ({ text, value, percentage }) => {
+  return (
+    <p>{text} {value} {percentage && '%'}</p>
+  )
+}
+
 // statistics component
 const Statistics = ({ good, neutral, bad }) => {
-  // keep track of all
+  // hide or show
   const all = good + neutral + bad
   const visible = all !== 0
+  // stats
+  const average = (good - bad)/(all)
+  const positive = (good)/(all) * 100
 
   return (
     <div>
@@ -12,12 +22,12 @@ const Statistics = ({ good, neutral, bad }) => {
       {visible 
       ? 
         <>
-          <p>good {good}</p>
-          <p>neutral {neutral}</p>
-          <p>bad {bad}</p>
-          <p>all {all}</p>
-          <p>average {(good - bad)/(all)}</p>
-          <p>positive {(good)/(all) * 100}%</p>
+          <StatisticLine text={'good'} value={good} />
+          <StatisticLine text={'neutral'} value={neutral} />
+          <StatisticLine text={'bad'} value={bad} />
+          <StatisticLine text={'all'} value={all} />
+          <StatisticLine text={'average'} value={average} />
+          <StatisticLine text={'positive'} value={positive} percentage={true} />
         </> 
       : 
         <>
@@ -25,6 +35,13 @@ const Statistics = ({ good, neutral, bad }) => {
         </>
       }
     </div>
+  )
+}
+
+// Button component
+const Button = ({ text, handleClick }) => {
+  return (
+    <button onClick={handleClick}>{text}</button>
   )
 }
 
@@ -37,9 +54,9 @@ const App = () => {
   return (
     <div>
       <h1>give feedback</h1>
-      <button onClick={() => setGood(good + 1)}>good</button>
-      <button onClick={() => setNeutral(neutral + 1)}>neutral</button>
-      <button onClick={() => setBad(bad + 1)}>bad</button>
+      <Button text={'good'} handleClick={() => setGood(good + 1)}/>
+      <Button text={'neutral'} handleClick={() => setNeutral(neutral + 1)}/>
+      <Button text={'bad'} handleClick={() => setBad(bad + 1)}/>
       <Statistics good={good} neutral={neutral} bad={bad} />
     </div>
   )
